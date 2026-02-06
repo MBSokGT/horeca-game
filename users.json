@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@horeca.com",
+      "fullName": "Главный Администратор",
+      "department": "IT",
+      "password": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+      "role": "god",
+      "resetToken": null,
+      "score": 0,
+      "bookmarks": [],
+      "createdAt": "2026-01-14T12:08:38.984Z"
+    }
+  ]
+}

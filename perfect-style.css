@@ -1,0 +1,1277 @@
+/* Идеальный дизайн для игры "Продажник Года" */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;700;900&display=swap');
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    --secondary-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    --success-gradient: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    --warning-gradient: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    --danger-gradient: linear-gradient(135deg, #8B0000 0%, #DC143C 100%);
+    --dark-gradient: linear-gradient(135deg, #f8f9fa 0%, #ffffff 50%, #f1f3f4 100%);
+    --glass-bg: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(139, 0, 0, 0.3);
+    --shadow-light: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-heavy: 0 20px 60px rgba(0, 0, 0, 0.15);
+    --text-primary: #2c2c2c;
+    --text-secondary: #495057;
+    --text-muted: #6c757d;
+    --text-dark: #2c2c2c;
+    --text-light: #ffffff;
+    --accent-color: #8B0000;
+    --accent-light: #DC143C;
+    --bg-light: #ffffff;
+    --bg-lighter: #f8f9fa;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--dark-gradient);
+    color: var(--text-primary);
+    overflow: hidden;
+    user-select: none;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(220, 20, 60, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(169, 169, 169, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Загрузочный экран */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--dark-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.loading-content {
+    text-align: center;
+    z-index: 1001;
+}
+
+.game-logo h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: 4.5rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, #8B0000, #DC143C, #A9A9A9, #ffffff);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 30px rgba(139, 0, 0, 0.5);
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes glow {
+    from { filter: drop-shadow(0 0 20px rgba(139, 0, 0, 0.5)); }
+    to { filter: drop-shadow(0 0 40px rgba(220, 20, 60, 0.8)); }
+}
+
+.game-logo p {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    margin-bottom: 3rem;
+    animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+.loading-bar {
+    width: 450px;
+    height: 8px;
+    background: var(--glass-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+}
+
+.loading-progress {
+    height: 100%;
+    background: var(--primary-gradient);
+    border-radius: 10px;
+    width: 0%;
+    transition: width 0.3s ease;
+    box-shadow: 0 0 20px rgba(139, 0, 0, 0.6);
+    position: relative;
+}
+
+.loading-progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.loading-text {
+    font-size: 1rem;
+    opacity: 0.8;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+/* Главное меню */
+.main-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-content {
+    text-align: center;
+    z-index: 1;
+    animation: fadeInScale 1s ease-out;
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.game-title h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: 5.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    animation: titleFloat 3s ease-in-out infinite;
+}
+
+@keyframes titleFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.game-title p {
+    font-size: 1.4rem;
+    opacity: 0.9;
+    margin-bottom: 3rem;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: center;
+}
+
+.menu-btn {
+    background: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    color: white;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 60px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(20px);
+    min-width: 320px;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.menu-btn:hover::before {
+    left: 100%;
+}
+
+.menu-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: var(--shadow-heavy);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.menu-btn.primary {
+    background: var(--primary-gradient);
+    border-color: transparent;
+    box-shadow: var(--shadow-light);
+}
+
+.menu-btn.primary:hover {
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+}
+
+/* Настройка персонажа */
+.character-setup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.setup-content {
+    background: var(--glass-bg);
+    padding: 50px;
+    border-radius: 30px;
+    backdrop-filter: blur(30px);
+    border: 1px solid var(--glass-border);
+    max-width: 650px;
+    width: 90%;
+    box-shadow: var(--shadow-heavy);
+    animation: slideInUp 0.8s ease-out;
+}
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(50px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.setup-content h2 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.2rem;
+    font-weight: 700;
+    background: var(--success-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.form-group {
+    margin-bottom: 30px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+#playerNameInput {
+    width: 100%;
+    padding: 15px 20px;
+    border: 2px solid var(--glass-border);
+    border-radius: 15px;
+    background: var(--glass-bg);
+    color: white;
+    font-size: 1.1rem;
+    font-family: inherit;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+#playerNameInput:focus {
+    outline: none;
+    border-color: #4ecdc4;
+    box-shadow: 0 0 20px rgba(78, 205, 196, 0.3);
+}
+
+.avatar-selection {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.avatar-option {
+    width: 70px;
+    height: 70px;
+    border: 3px solid var(--glass-border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.2rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+}
+
+.avatar-option:hover {
+    transform: scale(1.15);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+.avatar-option.selected {
+    border-color: #ffd700;
+    background: rgba(255, 215, 0, 0.2);
+    transform: scale(1.2);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+}
+
+.difficulty-selection {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.difficulty-option {
+    padding: 25px;
+    border: 2px solid var(--glass-border);
+    border-radius: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+}
+
+.difficulty-option:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: var(--shadow-light);
+}
+
+.difficulty-option.selected {
+    border-color: #ffd700;
+    background: rgba(255, 215, 0, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+}
+
+.difficulty-option h4 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.difficulty-option p {
+    font-size: 1rem;
+    opacity: 0.8;
+}
+
+.start-game-btn {
+    width: 100%;
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    padding: 18px 40px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 60px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-top: 30px;
+    box-shadow: var(--shadow-light);
+}
+
+.start-game-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 40px rgba(139, 0, 0, 0.4);
+}
+
+/* Игровой экран */
+.game-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.location-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: all 1s ease-in-out;
+    filter: brightness(0.7);
+}
+
+/* HUD */
+.game-hud {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 70%, transparent 100%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+}
+
+.player-avatar {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.avatar-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    box-shadow: var(--shadow-light);
+}
+
+.player-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.player-name {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.player-level {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    color: #4ecdc4;
+}
+
+.player-reputation {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+.day-counter {
+    text-align: center;
+    font-family: 'Orbitron', monospace;
+    background: var(--glass-bg);
+    padding: 15px 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+}
+
+.day-label {
+    display: block;
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.day-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #4ecdc4;
+    text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+}
+
+.day-total {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+.sales-info {
+    text-align: right;
+    background: var(--glass-bg);
+    padding: 15px 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+}
+
+.sales-label {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+.sales-amount {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #96ceb4;
+    text-shadow: 0 0 10px rgba(150, 206, 180, 0.5);
+}
+
+.target-progress {
+    width: 220px;
+    margin-top: 10px;
+}
+
+.target-label {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    margin-bottom: 5px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: var(--success-gradient);
+    border-radius: 10px;
+    width: 0%;
+    transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+}
+
+/* Диалоги и попапы */
+.client-card, .client-survey, .dialog-box, .equipment-catalog, .event-popup, .deal-result {
+    position: absolute;
+    background: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    border-radius: 25px;
+    backdrop-filter: blur(30px);
+    box-shadow: var(--shadow-heavy);
+    animation: modalSlideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalSlideIn {
+    from { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.client-card {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 500px;
+    z-index: 500;
+}
+
+.card-content {
+    padding: 40px;
+    text-align: center;
+}
+
+.card-content h2 {
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.client-info-card {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-bottom: 30px;
+    text-align: left;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.client-avatar-large {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: var(--secondary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    border: 3px solid var(--glass-border);
+    box-shadow: var(--shadow-light);
+}
+
+.client-details-card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+    color: #ffffff;
+}
+
+.client-company {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 8px;
+    color: #4ecdc4;
+}
+
+.client-purchases {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 15px;
+}
+
+.client-category-badge {
+    display: inline-block;
+    padding: 6px 15px;
+    background: var(--primary-gradient);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.start-meeting-btn, .continue-btn {
+    width: 100%;
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: var(--shadow-light);
+}
+
+.start-meeting-btn:hover, .continue-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(139, 0, 0, 0.4);
+}
+
+/* Каталог оборудования */
+.equipment-catalog {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 1100px;
+    height: 85%;
+    z-index: 300;
+    display: flex;
+    flex-direction: column;
+}
+
+.catalog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.catalog-header h3 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.catalog-search {
+    flex: 1;
+    margin: 0 30px;
+}
+
+.catalog-search input {
+    width: 100%;
+    padding: 12px 20px;
+    border: 2px solid var(--glass-border);
+    border-radius: 30px;
+    background: var(--glass-bg);
+    color: white;
+    font-size: 1rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.catalog-search input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 20px rgba(139, 0, 0, 0.3);
+}
+
+.close-catalog {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-catalog:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.catalog-content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.equipment-item {
+    background: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: center;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.equipment-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.equipment-item:hover::before {
+    left: 100%;
+}
+
+.equipment-item:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--accent-color);
+    box-shadow: 0 15px 40px rgba(139, 0, 0, 0.3);
+}
+
+.equipment-item.selected {
+    border-color: var(--accent-light);
+    background: rgba(220, 20, 60, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(220, 20, 60, 0.4);
+}
+
+.equipment-item .icon {
+    font-size: 3.5rem;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.equipment-item .name {
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    line-height: 1.3;
+}
+
+.equipment-item .price {
+    color: var(--accent-light);
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+}
+
+.quantity-controls {
+    display: none;
+    margin-top: 15px;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.equipment-item.selected .quantity-controls {
+    display: flex;
+}
+
+.quantity-btn {
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    background: var(--primary-gradient);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+}
+
+.quantity-btn:hover {
+    transform: scale(1.15);
+    box-shadow: 0 6px 20px rgba(139, 0, 0, 0.5);
+}
+
+.quantity-display {
+    color: white;
+    font-weight: bold;
+    min-width: 35px;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.catalog-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 30px;
+    border-top: 1px solid var(--glass-border);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.total-price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--accent-light);
+    text-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+}
+
+.make-offer-btn {
+    background: var(--primary-gradient);
+    border: none;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: var(--shadow-light);
+}
+
+.make-offer-btn:hover:not(:disabled) {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(139, 0, 0, 0.4);
+}
+
+.make-offer-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Кнопки управления */
+.game-controls {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 100;
+}
+
+.control-btn {
+    background: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(20px);
+    font-weight: 500;
+    font-size: 0.95rem;
+    min-width: 180px;
+}
+
+.control-btn:hover {
+    transform: translateY(-2px) translateX(-5px);
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: var(--shadow-light);
+}
+
+.control-btn.secondary {
+    opacity: 0.8;
+}
+
+/* Анимации */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .game-hud {
+        padding: 0 1rem;
+        height: 70px;
+    }
+    
+    .target-progress {
+        width: 150px;
+    }
+    
+    .equipment-catalog {
+        width: 95%;
+        height: 90%;
+    }
+    
+    .equipment-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 15px;
+    }
+    
+    .game-controls {
+        bottom: 15px;
+        right: 15px;
+    }
+    
+    .control-btn {
+        min-width: 150px;
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Дополнительные стили для новых элементов */
+.client-survey {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 600px;
+    z-index: 500;
+}
+
+.survey-content {
+    padding: 40px;
+}
+
+.survey-content h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.survey-progress {
+    margin-bottom: 30px;
+}
+
+.progress-bar-survey {
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.progress-fill-survey {
+    height: 100%;
+    background: var(--primary-gradient);
+    border-radius: 5px;
+    width: 20%;
+    transition: width 0.5s ease;
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.5);
+}
+
+.progress-text {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.question-card {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 30px;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+}
+
+.question-card h3 {
+    margin-bottom: 25px;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.question-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.question-option {
+    background: var(--glass-bg);
+    border: 2px solid var(--glass-border);
+    color: white;
+    padding: 18px 25px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-align: left;
+    font-size: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+.question-option:hover {
+    border-color: var(--accent-color);
+    background: rgba(139, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.question-option.selected {
+    border-color: var(--accent-light);
+    background: rgba(220, 20, 60, 0.2);
+    box-shadow: 0 5px 20px rgba(220, 20, 60, 0.3);
+}
+
+.question-option.client-response {
+    background: rgba(169, 169, 169, 0.15);
+    border-color: #A9A9A9;
+    color: var(--text-dark);
+}
+
+/* Диалоговое окно */
+.dialog-box {
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85%;
+    max-width: 900px;
+    z-index: 200;
+}
+
+.dialog-content {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.speaker-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.speaker-avatar {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: var(--secondary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    box-shadow: var(--shadow-light);
+}
+
+.speaker-name {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.dialog-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 15px 0;
+}
+
+.dialog-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.dialog-action {
+    background: var(--primary-gradient);
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-weight: 500;
+    font-size: 1rem;
+    box-shadow: var(--shadow-light);
+}
+
+.dialog-action:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Результат сделки и события */
+.deal-result, .event-popup {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 450px;
+    z-index: 400;
+    text-align: center;
+}
+
+.result-content, .event-content {
+    padding: 40px;
+}
+
+.result-icon, .event-icon {
+    font-size: 4.5rem;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.deal-result h3, .event-popup h3 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.deal-result p, .event-popup p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+    opacity: 0.9;
+}
+
+.event-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.event-action {
+    background: var(--primary-gradient);
+    border: none;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    font-weight: 500;
+    box-shadow: var(--shadow-light);
+}
+
+.event-action:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+/* Экран окончания игры */
+.game-over-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-over-content {
+    text-align: center;
+    max-width: 700px;
+    padding: 50px;
+    background: var(--glass-bg);
+    border-radius: 30px;
+    backdrop-filter: blur(30px);
+    border: 2px solid var(--glass-border);
+    box-shadow: var(--shadow-heavy);
+    animation: fadeInScale 1s ease-out;
+}
+
+.game-over-content h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: 3.5rem;
+    margin-bottom: 30px;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.final-stats {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(10px);
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.stat-value {
+    font-weight: 700;
+    color: var(--accent-light);
+    text-shadow: 0 0 10px rgba(220, 20, 60, 0.5);
+}
+
+.achievement {
+    margin-top: 20px;
+    padding: 20px;
+    background: var(--primary-gradient);
+    color: white;
+    border-radius: 15px;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.game-over-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}

@@ -1,0 +1,352 @@
+/* Дополнительные стили для DISC мини-игры */
+
+.disc-game-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.disc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    color: white;
+}
+
+.disc-stats {
+    display: flex;
+    gap: 20px;
+    font-weight: bold;
+}
+
+.client-context {
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.client-context h3 {
+    margin: 0 0 15px 0;
+    color: #495057;
+    font-size: 1.2em;
+}
+
+.chat-container {
+    background: white;
+    border: 2px solid #dee2e6;
+    border-radius: 12px;
+    overflow: hidden;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    max-height: 400px;
+    background: #fafafa;
+}
+
+.message {
+    display: flex;
+    margin-bottom: 15px;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.client-message .message-avatar {
+    background: #e3f2fd;
+}
+
+.manager-message .message-avatar {
+    background: #e8f5e8;
+}
+
+.system-message .message-avatar {
+    background: #fff3e0;
+}
+
+.message-content {
+    flex: 1;
+    max-width: calc(100% - 52px);
+}
+
+.message-name {
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 4px;
+}
+
+.message-text {
+    background: white;
+    padding: 12px 16px;
+    border-radius: 18px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    line-height: 1.4;
+    white-space: pre-line;
+}
+
+.client-message .message-text {
+    background: #e3f2fd;
+    border-bottom-left-radius: 4px;
+}
+
+.manager-message .message-text {
+    background: #e8f5e8;
+    border-bottom-right-radius: 4px;
+}
+
+.system-message .message-text {
+    background: #fff3e0;
+    border-radius: 8px;
+    font-style: italic;
+    border-left: 4px solid #ff9800;
+}
+
+.player-actions {
+    border-top: 2px solid #dee2e6;
+    padding: 20px;
+    background: white;
+}
+
+.action-buttons {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.action-btn {
+    padding: 15px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+.action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.action-btn:active {
+    transform: translateY(0);
+}
+
+/* Цветовое кодирование кнопок */
+.action-btn.optimal {
+    background: #28a745;
+    color: white;
+}
+
+.action-btn.optimal:hover {
+    background: #218838;
+}
+
+.action-btn.neutral {
+    background: #ffc107;
+    color: #212529;
+}
+
+.action-btn.neutral:hover {
+    background: #e0a800;
+}
+
+.action-btn.bad {
+    background: #dc3545;
+    color: white;
+}
+
+.action-btn.bad:hover {
+    background: #c82333;
+}
+
+.action-btn.primary {
+    background: #007bff;
+    color: white;
+}
+
+.action-btn.primary:hover {
+    background: #0056b3;
+}
+
+.disc-guess {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    border: 2px solid #dee2e6;
+}
+
+.disc-guess h4 {
+    margin: 0 0 15px 0;
+    text-align: center;
+    color: #495057;
+}
+
+.disc-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+}
+
+.disc-btn {
+    padding: 15px 20px;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    background: white;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.disc-btn:hover {
+    border-color: #007bff;
+    background: #f8f9fa;
+    transform: translateY(-2px);
+}
+
+.disc-btn[data-type="D"] {
+    border-left: 4px solid #dc3545;
+}
+
+.disc-btn[data-type="I"] {
+    border-left: 4px solid #ffc107;
+}
+
+.disc-btn[data-type="S"] {
+    border-left: 4px solid #28a745;
+}
+
+.disc-btn[data-type="C"] {
+    border-left: 4px solid #6f42c1;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .disc-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .disc-stats {
+        justify-content: center;
+    }
+    
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .disc-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .chat-messages {
+        max-height: 300px;
+    }
+}
+
+/* Анимации для обратной связи */
+.trust-increase {
+    animation: trustUp 0.5s ease-out;
+}
+
+.trust-decrease {
+    animation: trustDown 0.5s ease-out;
+}
+
+@keyframes trustUp {
+    0% { color: #28a745; transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes trustDown {
+    0% { color: #dc3545; transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Прогресс-бар */
+.progress-container {
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 10px 0;
+}
+
+.progress-bar {
+    height: 8px;
+    background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+    transition: width 0.3s ease;
+}
+
+/* Подсказки для типов DISC */
+.disc-hint {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 1000;
+}
+
+.disc-btn:hover .disc-hint {
+    opacity: 1;
+}
+
+.disc-hint::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 5px solid transparent;
+    border-top-color: #333;
+}

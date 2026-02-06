@@ -1,0 +1,454 @@
+/* ===== СТИЛИ ДЛЯ УЛУЧШЕННЫХ МЕХАНИК ===== */
+
+/* 1. TYPEWRITER ЭФФЕКТ - курсор мигает */
+.dialog-text.typing::after {
+    content: '|';
+    animation: blink 0.7s infinite;
+    margin-left: 2px;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* 2. ИНДИКАТОР ТЕРПЕНИЯ КЛИЕНТА */
+.patience-indicator {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 100;
+}
+
+.patience-icon {
+    font-size: 24px;
+}
+
+.patience-bar {
+    width: 150px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.patience-fill {
+    height: 100%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    border-radius: 4px;
+}
+
+.patience-fill.high {
+    background: linear-gradient(90deg, #2ecc71, #27ae60);
+}
+
+.patience-fill.medium {
+    background: linear-gradient(90deg, #f39c12, #e67e22);
+}
+
+.patience-fill.low {
+    background: linear-gradient(90deg, #e74c3c, #c0392b);
+    animation: pulse 0.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* 3. DISC ИНДИКАТОР */
+.disc-badge {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 8px 15px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 100;
+}
+
+.disc-badge.D {
+    border: 2px solid #e74c3c;
+    color: #e74c3c;
+}
+
+.disc-badge.I {
+    border: 2px solid #f39c12;
+    color: #f39c12;
+}
+
+.disc-badge.S {
+    border: 2px solid #2ecc71;
+    color: #2ecc71;
+}
+
+.disc-badge.C {
+    border: 2px solid #3498db;
+    color: #3498db;
+}
+
+.disc-type-icon {
+    font-size: 16px;
+}
+
+/* 4. INSTANT FEEDBACK POPUP */
+.instant-feedback {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    max-width: 500px;
+    width: 90%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    animation: fadeInScale 0.3s ease;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.instant-feedback.excellent {
+    border: 3px solid #2ecc71;
+}
+
+.instant-feedback.good {
+    border: 3px solid #3498db;
+}
+
+.instant-feedback.neutral {
+    border: 3px solid #95a5a6;
+}
+
+.instant-feedback.poor {
+    border: 3px solid #f39c12;
+}
+
+.instant-feedback.bad {
+    border: 3px solid #e74c3c;
+}
+
+.feedback-icon {
+    font-size: 60px;
+    margin-bottom: 15px;
+}
+
+.feedback-message {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.feedback-explanation {
+    font-size: 16px;
+    color: #7f8c8d;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.feedback-tip {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #2c3e50;
+    margin-top: 10px;
+    border-left: 4px solid #3498db;
+    text-align: left;
+}
+
+.feedback-continue {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.feedback-continue:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* 5. ТУТОРИАЛ ОВЕРЛЕЙ */
+.tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.tutorial-tooltip {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    z-index: 10002;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -120%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -100%);
+    }
+}
+
+.tutorial-tooltip h3 {
+    margin: 0 0 15px 0;
+    font-size: 22px;
+    color: #2c3e50;
+}
+
+.tutorial-tooltip p {
+    margin: 0 0 20px 0;
+    font-size: 16px;
+    color: #7f8c8d;
+    line-height: 1.5;
+}
+
+.tutorial-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.tutorial-controls button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tutorial-controls button:not(.primary) {
+    background: #ecf0f1;
+    color: #7f8c8d;
+}
+
+.tutorial-controls button:not(.primary):hover {
+    background: #d5dbdb;
+}
+
+.tutorial-controls button.primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.tutorial-controls button.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.tutorial-highlight {
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.5), 
+                0 0 30px rgba(102, 126, 234, 0.3) !important;
+    animation: highlightPulse 2s infinite;
+}
+
+@keyframes highlightPulse {
+    0%, 100% {
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.5), 
+                    0 0 30px rgba(102, 126, 234, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 0 6px rgba(102, 126, 234, 0.7), 
+                    0 0 40px rgba(102, 126, 234, 0.5);
+    }
+}
+
+/* 6. АНИМАЦИИ ПЕРСОНАЖЕЙ */
+.character-sprite {
+    transition: all 0.3s ease;
+}
+
+.character-sprite.talking {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+}
+
+.character-sprite.thinking {
+    animation: thinking 2s infinite;
+}
+
+@keyframes thinking {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+}
+
+.character-sprite.happy {
+    animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.character-sprite.angry {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* 7. УЛУЧШЕННЫЙ КАТАЛОГ С МАТЧИНГОМ */
+.equipment-item {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.equipment-item.high-match {
+    border: 2px solid #2ecc71 !important;
+}
+
+.equipment-item.medium-match {
+    border: 2px solid #f39c12 !important;
+}
+
+.equipment-item.low-match {
+    opacity: 0.6;
+}
+
+.match-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #2ecc71;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 700;
+    z-index: 10;
+}
+
+.match-badge.high {
+    background: #2ecc71;
+}
+
+.match-badge.medium {
+    background: #f39c12;
+}
+
+.match-badge.low {
+    background: #e74c3c;
+}
+
+/* 8. ПРОГРЕСС БАР ДОВЕРИЯ */
+.trust-bar {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 100;
+}
+
+.trust-icon {
+    font-size: 18px;
+}
+
+.trust-progress {
+    flex: 1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.trust-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    transition: width 0.5s ease;
+    border-radius: 3px;
+}
+
+.trust-value {
+    font-size: 12px;
+    font-weight: 700;
+    color: white;
+}
+
+/* 9. АДАПТИВНОСТЬ ДЛЯ НОВЫХ ЭЛЕМЕНТОВ */
+@media (max-width: 768px) {
+    .instant-feedback {
+        max-width: 90%;
+        padding: 20px;
+    }
+
+    .feedback-icon {
+        font-size: 48px;
+    }
+
+    .feedback-message {
+        font-size: 18px;
+    }
+
+    .patience-indicator,
+    .disc-badge {
+        right: 10px;
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+
+    .patience-bar {
+        width: 100px;
+    }
+}

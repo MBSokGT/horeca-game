@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Продаван Года - Симулятор менеджера HoReCa</title>
+    <link rel="stylesheet" href="modern-style.css">
+    <link rel="stylesheet" href="auth-styles.css">
+    <link rel="stylesheet" href="mini-games-styles.css">
+    <link rel="stylesheet" href="disc-styles.css">
+    <link rel="stylesheet" href="dialog-styles.css">
+    <link rel="stylesheet" href="navigation-styles.css">
+    <link rel="stylesheet" href="premium-styles.css">
+    <link rel="stylesheet" href="enhanced-styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Гамбургер меню -->
+    <div class="hamburger-menu" id="hamburgerMenu">
+        <div class="hamburger-icon" id="hamburgerIcon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <!-- Боковое меню -->
+    <div class="side-menu" id="sideMenu">
+        <div class="side-menu-content">
+            <div class="menu-header">
+                <h3>Меню игры</h3>
+                <button class="close-menu" id="closeMenu">✕</button>
+            </div>
+            <div class="menu-items">
+                <div class="menu-item" id="menuHome">
+                    <span class="menu-icon">🏠</span>
+                    <span>Главное меню</span>
+                </div>
+                <div class="menu-item" id="menuSettings">
+                    <span class="menu-icon">⚙️</span>
+                    <span>Настройки</span>
+                </div>
+                <div class="menu-item" id="menuMiniGames">
+                    <span class="menu-icon">🎮</span>
+                    <span>Мини-игры</span>
+                </div>
+                <div class="menu-item" id="menuStats">
+                    <span class="menu-icon">📊</span>
+                    <span>Статистика</span>
+                </div>
+                <div class="menu-item" id="menuHelp">
+                    <span class="menu-icon">❓</span>
+                    <span>Помощь</span>
+                </div>
+                <div class="menu-item" id="menuExit">
+                    <span class="menu-icon">🚪</span>
+                    <span>Выход</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Настройки игры -->
+    <div class="settings-menu" id="settingsMenu" style="display: none;">
+        <div class="settings-content">
+            <div class="settings-header">
+                <h2>Настройки игры</h2>
+                <button class="close-settings" id="closeSettings">✕</button>
+            </div>
+            <div class="settings-body">
+                <div class="setting-group">
+                    <h3>Звук</h3>
+                    <div class="setting-item">
+                        <label>Громкость музыки</label>
+                        <input type="range" id="musicVolume" min="0" max="100" value="50">
+                        <span id="musicVolumeValue">50%</span>
+                    </div>
+                    <div class="setting-item">
+                        <label>Громкость эффектов</label>
+                        <input type="range" id="sfxVolume" min="0" max="100" value="70">
+                        <span id="sfxVolumeValue">70%</span>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <h3>Графика</h3>
+                    <div class="setting-item">
+                        <label>Качество графики</label>
+                        <select id="graphicsQuality">
+                            <option value="low">Низкое</option>
+                            <option value="medium" selected>Среднее</option>
+                            <option value="high">Высокое</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label>Анимации</label>
+                        <input type="checkbox" id="animations" checked>
+                    </div>
+                </div>
+                <div class="setting-group">
+                    <h3>Игровой процесс</h3>
+                    <div class="setting-item">
+                        <label>Автосохранение</label>
+                        <input type="checkbox" id="autosave" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label>Подсказки</label>
+                        <input type="checkbox" id="hints" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label>Скорость диалогов</label>
+                        <select id="dialogSpeed">
+                            <option value="slow">Медленно</option>
+                            <option value="normal" selected>Нормально</option>
+                            <option value="fast">Быстро</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="settings-footer">
+                <button class="settings-btn" id="resetSettings">Сбросить</button>
+                <button class="settings-btn primary" id="saveSettings">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Загрузочный экран -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-bg"></div>
+        <div class="loading-content">
+            <div class="game-logo">
+                <div class="logo-icon">💼</div>
+                <h1>ПРОДАВАН ГОДА</h1>
+                <p>Симулятор менеджера HoReCa</p>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress" id="loadingProgress"></div>
+            </div>
+            <div class="loading-text" id="loadingText">Загрузка каталога оборудования...</div>
+        </div>
+    </div>
+
+    <!-- Экран входа/регистрации -->
+    <div class="auth-screen" id="authScreen" style="display: none;">
+        <div class="auth-content">
+            <h2 id="authTitle">Вход в игру</h2>
+            <div class="auth-form">
+                <div class="form-group">
+                    <label>Имя:</label>
+                    <input type="text" id="nameInput" placeholder="Ваше имя">
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="emailInput" placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Пароль:</label>
+                    <input type="password" id="passwordInput" placeholder="Введите пароль">
+                </div>
+                <button class="auth-btn" id="loginBtn">Войти</button>
+                <button class="auth-btn secondary" id="registerBtn">Регистрация</button>
+                <button class="auth-link" id="forgotPasswordBtn">Забыли пароль?</button>
+                <button class="auth-link" id="guestBtn">Играть как гость</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Экран восстановления пароля -->
+    <div class="recovery-screen" id="recoveryScreen" style="display: none;">
+        <div class="recovery-content">
+            <h2>Восстановление пароля</h2>
+            <div class="recovery-form">
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="recoveryEmailInput" placeholder="your@email.com">
+                </div>
+                <button class="auth-btn" id="sendRecoveryBtn">Отправить код</button>
+                <div class="recovery-code-section" id="recoveryCodeSection" style="display: none;">
+                    <div class="form-group">
+                        <label>Код восстановления:</label>
+                        <input type="text" id="recoveryCodeInput" placeholder="Введите код">
+                    </div>
+                    <div class="form-group">
+                        <label>Новый пароль:</label>
+                        <input type="password" id="newPasswordInput" placeholder="Новый пароль">
+                    </div>
+                    <button class="auth-btn" id="resetPasswordBtn">Сменить пароль</button>
+                </div>
+                <button class="auth-link" id="backToLoginBtn">Назад к входу</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Главное меню -->
+    <div class="main-menu" id="mainMenu" style="display: none;">
+        <div class="menu-bg"></div>
+        <div class="menu-content">
+            <div class="game-title">
+                <h1>ПРОДАВАН ГОДА</h1>
+                <p>Станьте лучшим менеджером по продажам!</p>
+            </div>
+            <div class="menu-buttons">
+                <button class="menu-btn primary" id="startSingleGame">🎯 Начать карьеру</button>
+                <button class="menu-btn" id="showTutorial">📚 Обучение</button>
+                <button class="menu-btn" id="showMiniGames">🎮 Мини-игры</button>
+            </div>
+            <div class="version">v1.0.0</div>
+        </div>
+        
+        <!-- Кнопка аккаунта -->
+        <div class="auth-corner">
+            <button class="auth-corner-btn" id="showAuthBtn">👤 Аккаунт</button>
+        </div>
+    </div>
+
+    <!-- Настройка персонажа -->
+    <div class="character-setup" id="characterSetup" style="display: none;">
+        <div class="setup-content">
+            <h2>Создание персонажа</h2>
+            <div class="setup-form">
+                <div class="form-group">
+                    <label>Имя менеджера:</label>
+                    <input type="text" id="playerNameInput" placeholder="Алексей Продажин">
+                </div>
+                <div class="form-group">
+                    <label>Аватар:</label>
+                    <div class="avatar-selection">
+                        <div class="avatar-option selected" data-avatar="👨💼">👨💼</div>
+                        <div class="avatar-option" data-avatar="👩💼">👩💼</div>
+                        <div class="avatar-option" data-avatar="🧑💻">🧑💻</div>
+                        <div class="avatar-option" data-avatar="👔">👔</div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Уровень сложности:</label>
+                    <div class="difficulty-selection">
+                        <div class="difficulty-option selected" data-difficulty="easy">
+                            <h4>Легкий</h4>
+                            <p>Цель: 300,000₽</p>
+                        </div>
+                        <div class="difficulty-option" data-difficulty="normal">
+                            <h4>Обычный</h4>
+                            <p>Цель: 500,000₽</p>
+                        </div>
+                        <div class="difficulty-option" data-difficulty="hard">
+                            <h4>Сложный</h4>
+                            <p>Цель: 800,000₽</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="start-game-btn" id="startGameBtn">Начать игру</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Игровой экран -->
+    <div class="game-screen" id="gameScreen" style="display: none;">
+        <!-- Фон локации -->
+        <div class="location-bg" id="locationBg"></div>
+        
+        <!-- Индикаторы клиента -->
+        <div class="patience-indicator" id="patienceIndicator" style="display: none;">
+            <span class="patience-icon">⏱️</span>
+            <div class="patience-bar">
+                <div class="patience-fill high" id="patienceFill" style="width: 100%;"></div>
+            </div>
+        </div>
+
+        <div class="disc-badge" id="discBadge" style="display: none;">
+            <span class="disc-type-icon" id="discIcon"></span>
+            <span id="discLabel"></span>
+        </div>
+
+        <div class="trust-bar" id="trustBar" style="display: none;">
+            <span class="trust-icon">🤝</span>
+            <div class="trust-progress">
+                <div class="trust-fill" id="trustFill" style="width: 50%;"></div>
+            </div>
+            <span class="trust-value" id="trustValue">50%</span>
+        </div>
+
+        <!-- HUD -->
+        <div class="game-hud">
+            <div class="hud-left">
+                <div class="player-avatar">
+                    <div class="avatar-img" id="playerAvatar"></div>
+                    <div class="player-info">
+                        <div class="player-name" id="playerNameDisplay">Алексей Продажин</div>
+                        <div class="player-level" id="playerLevelDisplay">Менеджер Lv.1</div>
+                        <div class="player-reputation">Репутация: <span id="reputationDisplay">50</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hud-center">
+                <div class="day-counter">
+                    <span class="day-label">ДЕНЬ</span>
+                    <span class="day-number" id="dayNumber">1</span>
+                    <span class="day-total">/30</span>
+                </div>
+            </div>
+            
+            <div class="hud-right">
+                <div class="sales-info">
+                    <div class="sales-counter">
+                        <div class="sales-label">ПРОДАЖИ</div>
+                        <div class="sales-amount" id="salesAmount">0 ₽</div>
+                    </div>
+                </div>
+                <div class="target-progress">
+                    <div class="target-label">ЦЕЛЬ: <span id="targetAmount">500,000</span> ₽</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Карточка клиента -->
+        <div class="client-card" id="clientCard" style="display: none;">
+            <div class="card-content">
+                <h2 id="cardTitle">Информация о клиенте</h2>
+                <div class="client-info-card">
+                    <div class="client-avatar-large" id="clientAvatarLarge">🏪</div>
+                    <div class="client-details-card">
+                        <h3 id="clientFullName">Имя клиента</h3>
+                        <div class="client-company" id="clientCompany">Компания</div>
+                        <div class="client-purchases" id="clientPurchases">Частые покупки</div>
+                        <div class="client-category-badge" id="clientCategoryBadge">Постоянный клиент</div>
+                    </div>
+                </div>
+                <button class="start-meeting-btn" id="startMeetingBtn">Начать встречу</button>
+            </div>
+        </div>
+
+        <!-- Анкета нового клиента -->
+        <div class="client-survey" id="clientSurvey" style="display: none;">
+            <div class="survey-content">
+                <h2>Знакомство с новым клиентом</h2>
+                <div class="survey-progress">
+                    <div class="progress-bar-survey">
+                        <div class="progress-fill-survey" id="surveyProgress"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">Вопрос 1 из 5</span>
+                </div>
+                <div class="question-card">
+                    <h3 id="questionTitle">Вопрос</h3>
+                    <div class="question-options" id="questionOptions">
+                        <!-- Варианты ответов -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Система уровней игрока -->
+        <div class="level-up-popup" id="levelUpPopup" style="display: none;">
+            <div class="level-content">
+                <div class="level-icon">🎉</div>
+                <h3>Повышение уровня!</h3>
+                <p id="levelUpText">Поздравляем! Вы достигли нового уровня!</p>
+                <div class="new-skills" id="newSkills"></div>
+                <button class="continue-btn" id="levelContinueBtn">Продолжить</button>
+            </div>
+        </div>
+        
+        <!-- Система достижений -->
+        <div class="achievement-popup" id="achievementPopup" style="display: none;">
+            <div class="achievement-content">
+                <div class="achievement-icon" id="achievementIcon">🏆</div>
+                <h3>Достижение разблокировано!</h3>
+                <p id="achievementText">Новое достижение получено!</p>
+                <button class="continue-btn" id="achievementContinueBtn">Продолжить</button>
+            </div>
+        </div>
+        <div class="characters">
+            <div class="character player-char" id="playerChar">
+                <div class="char-sprite"></div>
+            </div>
+            <div class="character client-char" id="clientChar" style="display: none;">
+                <div class="char-sprite" id="clientSprite"></div>
+                <div class="char-name" id="clientCharName"></div>
+            </div>
+        </div>
+
+        <!-- Диалоговое окно -->
+        <div class="dialog-box" id="dialogBox" style="display: none;">
+            <div class="dialog-content">
+                <div class="speaker-info">
+                    <div class="speaker-avatar" id="speakerAvatar"></div>
+                    <div class="speaker-name" id="speakerName"></div>
+                </div>
+                <div class="dialog-text" id="dialogText"></div>
+                <div class="dialog-actions" id="dialogActions">
+                    <!-- Кнопки выбора -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Каталог оборудования -->
+        <div class="equipment-catalog" id="equipmentCatalog" style="display: none;">
+            <div class="catalog-header">
+                <h3>📦 Каталог оборудования</h3>
+                <div class="catalog-search">
+                    <input type="text" id="equipmentSearch" placeholder="Поиск товаров..." />
+                </div>
+                <button class="close-catalog" id="closeCatalog">✕</button>
+            </div>
+            <div class="catalog-content">
+                <div class="equipment-grid" id="equipmentGrid">
+                    <!-- Оборудование -->
+                </div>
+                <div class="catalog-footer">
+                    <div class="total-price">Итого: <span id="totalPrice">0 ₽</span></div>
+                    <button class="make-offer-btn" id="makeOfferBtn" disabled>Сделать предложение</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Панель событий -->
+        <div class="event-popup" id="eventPopup" style="display: none;">
+            <div class="event-content">
+                <div class="event-icon" id="eventIcon">⚡</div>
+                <h3 id="eventTitle">Случайное событие</h3>
+                <p id="eventDescription"></p>
+                <div class="event-actions" id="eventActions">
+                    <!-- Кнопки действий -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Результат сделки -->
+        <div class="deal-result" id="dealResult" style="display: none;">
+            <div class="result-content">
+                <div class="result-icon" id="resultIcon">💰</div>
+                <h3 id="resultTitle">Сделка заключена!</h3>
+                <p id="resultText"></p>
+                <button class="continue-btn" id="continueBtn">Продолжить</button>
+            </div>
+        </div>
+
+        <!-- Кнопки управления -->
+        <div class="game-controls">
+            <button class="control-btn" id="nextClientBtn">Следующий клиент</button>
+            <button class="control-btn" id="openCatalogBtn">Открыть каталог</button>
+            <button class="control-btn secondary" id="skipDayBtn">Завершить день</button>
+        </div>
+    </div>
+
+    <!-- Меню мини-игр -->
+    <div class="mini-games-menu" id="miniGamesMenu" style="display: none;">
+        <div class="mini-games-content">
+            <h2>Мини-игры для обучения</h2>
+            <div class="mini-games-grid">
+                <div class="mini-game-card" id="discGameCard">
+                    <div class="game-icon">🎭</div>
+                    <h3>DISC Типы Клиентов</h3>
+                    <p>Научись определять тип клиента за 1-2 минуты</p>
+                    <button class="play-mini-game-btn" id="playDiscGame">Играть</button>
+                </div>
+            </div>
+            <button class="back-btn" id="backFromMiniGames">Назад</button>
+        </div>
+    </div>
+
+    <!-- DISC Мини-игра -->
+    <div class="disc-game" id="discGame" style="display: none;">
+        <div class="disc-game-content">
+            <div class="disc-header">
+                <h2>DISC: Определение типа клиента</h2>
+                <div class="disc-stats">
+                    <span>Очки: <span id="discScore">0</span></span>
+                    <span>Доверие: <span id="trustLevel">50</span>%</span>
+                </div>
+            </div>
+            
+            <div class="client-context" id="clientContext">
+                <h3>Контекст</h3>
+                <p id="contextText"></p>
+            </div>
+            
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages"></div>
+                
+                <div class="player-actions" id="playerActions">
+                    <div class="action-buttons" id="actionButtons"></div>
+                    
+                    <div class="disc-guess" id="discGuess" style="display: none;">
+                        <h4>Какой тип DISC у клиента?</h4>
+                        <div class="disc-options">
+                            <button class="disc-btn" data-type="D">D - Доминантный</button>
+                            <button class="disc-btn" data-type="I">I - Влиятельный</button>
+                            <button class="disc-btn" data-type="S">S - Стабильный</button>
+                            <button class="disc-btn" data-type="C">C - Сознательный</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="back-btn" id="backFromDiscGame">Завершить игру</button>
+        </div>
+    </div>
+
+    <!-- Экран окончания игры -->
+    <div class="game-over-screen" id="gameOverScreen" style="display: none;">
+        <div class="game-over-content">
+            <h1 id="gameOverTitle">Месяц завершен!</h1>
+            <div class="final-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Итоговые продажи:</span>
+                    <span class="stat-value" id="finalSales">0 ₽</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Выполнение плана:</span>
+                    <span class="stat-value" id="planCompletion">0%</span>
+                </div>
+                <div class="achievement" id="achievement"></div>
+            </div>
+            <div class="game-over-buttons">
+                <button class="menu-btn primary" id="playAgainBtn">Играть снова</button>
+                <button class="menu-btn" id="backToMenuBtn">Главное меню</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Панель детального анализа -->
+    <div class="detailed-analysis" id="detailedAnalysis" style="display: none;">
+        <div class="analysis-content">
+            <div class="analysis-header">
+                <h2>📊 Детальный анализ результатов</h2>
+                <button class="close-analysis" id="closeAnalysis">✕</button>
+            </div>
+            <div class="analysis-body" id="analysisBody">
+                <!-- Контент анализа -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Мгновенная обратная связь -->
+    <div class="instant-feedback" id="instantFeedback" style="display: none;">
+        <div class="feedback-icon" id="feedbackIcon">🎯</div>
+        <div class="feedback-message" id="feedbackMessage">Отличный выбор!</div>
+        <div class="feedback-explanation" id="feedbackExplanation">Объяснение...</div>
+        <div class="feedback-tip" id="feedbackTip">💡 Совет...</div>
+        <button class="feedback-continue" id="feedbackContinue">Продолжить</button>
+    </div>
+
+    <script src="enhanced-mechanics.js"></script>
+    <script src="interactive-disc-generator.js"></script>
+    <script src="disc-clients-database.js"></script>
+    <script src="disc-game.js"></script>
+    <script src="premium-feedback.js"></script>
+    <script src="new-equipment.js"></script>
+    <script src="clients.js"></script>
+    <script src="events.js"></script>
+    <script src="extended-events.js"></script>
+    <script src="achievements.js"></script>
+    <script src="save-system.js"></script>
+    <script src="auth-system.js"></script>
+    <script src="modern-game.js"></script>
+    <script src="improved-game-integration.js"></script>
+</body>
+</html>

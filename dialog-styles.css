@@ -1,0 +1,169 @@
+/* Стили для улучшенных диалогов */
+
+.dialog-box {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid #ddd;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+}
+
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.speaker-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.speaker-avatar {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0f0f0;
+    border-radius: 50%;
+}
+
+.speaker-name {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Анимация печатания текста */
+.dialog-text {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #444;
+    min-height: 60px;
+    max-height: 200px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.dialog-text::after {
+    content: '|';
+    animation: blink 1s infinite;
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.dialog-text.typing-complete::after {
+    display: none;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+.manager-message {
+    background: #e8f5e8;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin: 5px 0;
+    border-left: 4px solid #28a745;
+}
+
+.client-message {
+    background: #e3f2fd;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin: 5px 0;
+    border-left: 4px solid #2196f3;
+}
+
+.dialog-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.dialog-action {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+}
+
+.dialog-action:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+}
+
+.dialog-action:active {
+    transform: translateY(0);
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .dialog-box {
+        width: 95%;
+        bottom: 10px;
+        padding: 15px;
+    }
+    
+    .dialog-text {
+        font-size: 14px;
+    }
+    
+    .dialog-action {
+        padding: 10px 15px;
+        font-size: 13px;
+    }
+}
+
+/* Анимации появления */
+@keyframes dialogSlideUp {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+.dialog-box {
+    animation: dialogSlideUp 0.3s ease-out;
+}
+
+/* Стили для сообщений в диалоге */
+.manager-message, .client-message {
+    animation: messageSlideIn 0.3s ease-out;
+}
+
+@keyframes messageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
