@@ -220,30 +220,57 @@ body {
     transition: background-image 1s ease-in-out;
 }
 
-/* Фоны локаций */
-.location-bg.office {
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23f0f0f0"/><rect x="100" y="100" width="1000" height="600" fill="%23e0e0e0"/><rect x="200" y="200" width="200" height="400" fill="%23d0d0d0"/><rect x="500" y="200" width="200" height="400" fill="%23d0d0d0"/><rect x="800" y="200" width="200" height="400" fill="%23d0d0d0"/></svg>');
+/* Фоны локаций — атмосферные градиенты */
+.location-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+        rgba(0,0,0,0.08) 0%,
+        transparent 40%,
+        rgba(0,0,0,0.55) 100%);
+    pointer-events: none;
+    z-index: 1;
 }
 
-.location-bg.restaurant {
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%238b4513"/><circle cx="300" cy="400" r="80" fill="%23daa520"/><circle cx="600" cy="400" r="80" fill="%23daa520"/><circle cx="900" cy="400" r="80" fill="%23daa520"/></svg>');
-}
-
+/* Кафе — тёплые кофейные тона */
 .location-bg.cafe {
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23f4a460"/><rect x="200" y="300" width="100" height="200" fill="%23deb887"/><rect x="400" y="300" width="100" height="200" fill="%23deb887"/><rect x="600" y="300" width="100" height="200" fill="%23deb887"/></svg>');
+    background:
+        radial-gradient(ellipse at 25% 55%, rgba(210,140,70,0.35) 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 35%, rgba(180,100,50,0.25) 0%, transparent 50%),
+        linear-gradient(160deg, #3a1f0f 0%, #6b3820 25%, #8c5535 55%, #5c3018 80%, #2e150a 100%);
 }
 
+/* Ресторан — тёмный элегантный бордо */
+.location-bg.restaurant {
+    background:
+        radial-gradient(ellipse at 50% 70%, rgba(180,100,40,0.3) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 30%, rgba(120,30,30,0.2) 0%, transparent 45%),
+        linear-gradient(160deg, #120808 0%, #2a0f0f 30%, #3d1a10 60%, #1e0c0c 100%);
+}
+
+/* Офис — холодный корпоративный синий */
+.location-bg.office {
+    background:
+        radial-gradient(ellipse at 50% 25%, rgba(80,130,220,0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 70%, rgba(40,80,160,0.15) 0%, transparent 50%),
+        linear-gradient(160deg, #08101e 0%, #0f1e35 30%, #162a48 60%, #0d1a2e 100%);
+}
+
+/* Отель — роскошный фиолетово-золотой */
 .location-bg.hotel {
-    background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
-                linear-gradient(135deg, #1a1a3e 0%, #2c2c5a 40%, #3a2a4a 100%);
+    background:
+        radial-gradient(ellipse at 50% 50%, rgba(180,140,60,0.25) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 70%, rgba(120,60,180,0.2) 0%, transparent 50%),
+        linear-gradient(160deg, #0f0820 0%, #1e1035 30%, #2d1848 60%, #180d30 100%);
 }
 
+/* Столовая — зелёный индустриальный */
 .location-bg.canteen {
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
-                linear-gradient(135deg, #2a3a2a 0%, #3a4a3a 40%, #4a5a4a 100%);
+    background:
+        radial-gradient(ellipse at 40% 60%, rgba(60,130,70,0.22) 0%, transparent 55%),
+        radial-gradient(ellipse at 70% 30%, rgba(40,100,50,0.15) 0%, transparent 45%),
+        linear-gradient(160deg, #080f08 0%, #111e10 30%, #1a2c18 60%, #0d1a0c 100%);
 }
 
 /* HUD */
@@ -252,15 +279,16 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 80px;
-    background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
+    height: 70px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.55) 100%);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 2rem;
+    padding: 0 1.5rem 0 72px; /* 72px — место под гамбургер */
     z-index: 50;
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.4);
 }
 
 .hud-left {
@@ -379,11 +407,12 @@ body {
 /* Персонажи */
 .characters {
     position: absolute;
-    bottom: 0;
+    bottom: 200px; /* смещаем выше диалога (~200px от низа) */
     left: 0;
     width: 100%;
-    height: 400px;
+    height: 480px;
     pointer-events: none;
+    z-index: 10;
 }
 
 .character {
@@ -393,15 +422,15 @@ body {
 }
 
 .player-char {
-    left: 100px;
+    left: 80px;
     width: 200px;
-    height: 300px;
+    height: 360px;
 }
 
 .client-char {
-    right: 100px;
+    right: 80px;
     width: 200px;
-    height: 300px;
+    height: 360px;
 }
 
 .char-sprite {
@@ -429,20 +458,9 @@ body {
     white-space: nowrap;
 }
 
-/* Диалоговое окно */
+/* Диалоговое окно — основные стили в dialog-styles.css */
 .dialog-box {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    max-width: 800px;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8));
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    padding: 2rem;
-    backdrop-filter: blur(10px);
-    z-index: 200;
+    /* override: убираем устаревшие стили, dialog-styles.css управляет позицией */
 }
 
 .dialog-content {
@@ -737,36 +755,46 @@ body {
     box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 
-/* Кнопки управления */
+/* Кнопки управления — правая колонка под HUD */
 .game-controls {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    top: 78px; /* под HUD */
+    right: 16px;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    z-index: 100;
+    gap: 6px;
+    z-index: 200; /* выше диалога (z:100) */
 }
 
 .control-btn {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    padding: 0.8rem 1.2rem;
-    border-radius: 25px;
+    background: rgba(0, 0, 0, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.9);
+    padding: 7px 14px;
+    border-radius: 20px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
+    backdrop-filter: blur(12px);
     font-weight: 500;
+    font-size: 0.82rem;
+    white-space: nowrap;
+    font-family: inherit;
 }
 
 .control-btn:hover {
-    transform: translateY(-2px);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.2));
+    background: rgba(102, 126, 234, 0.4);
+    border-color: rgba(102, 126, 234, 0.6);
+    transform: translateX(-3px);
+    box-shadow: 0 2px 12px rgba(102, 126, 234, 0.3);
 }
 
 .control-btn.secondary {
-    opacity: 0.7;
+    opacity: 0.65;
+    font-size: 0.78rem;
+}
+
+.control-btn.secondary:hover {
+    opacity: 1;
 }
 
 /* Экран окончания игры */
@@ -856,9 +884,7 @@ body {
     }
 }
 
-.dialog-box {
-    animation: slideInUp 0.5s ease;
-}
+/* dialog-box animation controlled by dialog-styles.css */
 
 .equipment-catalog, .event-popup, .deal-result {
     animation: scaleIn 0.3s ease;
@@ -873,11 +899,6 @@ body {
     
     .hud-right .target-progress {
         width: 150px;
-    }
-    
-    .dialog-box {
-        width: 95%;
-        padding: 1rem;
     }
     
     .equipment-catalog {

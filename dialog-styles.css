@@ -1,169 +1,141 @@
-/* Стили для улучшенных диалогов */
+/* ===== ДИАЛОГОВОЕ ОКНО — СТИЛЬ ВИЗУАЛЬНОЙ НОВЕЛЛЫ ===== */
 
 .dialog-box {
     position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 800px;
-    background: rgba(255, 255, 255, 0.95);
-    border: 2px solid #ddd;
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(180deg, rgba(6, 8, 24, 0.94) 0%, rgba(4, 6, 18, 0.98) 100%);
+    border-top: 1px solid rgba(100, 120, 255, 0.2);
+    border-radius: 0;
+    padding: 18px 32px 22px;
+    box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.6), 0 -2px 0 rgba(100, 120, 255, 0.15);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    z-index: 100;
+    box-sizing: border-box;
+    animation: dialogSlideUp 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@keyframes dialogSlideUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
 }
 
 .dialog-content {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
+    max-width: 960px;
+    margin: 0 auto;
 }
 
+/* Строка со спикером */
 .speaker-info {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
 .speaker-avatar {
     font-size: 24px;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f0f0f0;
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.25), rgba(102, 126, 234, 0.25));
     border-radius: 50%;
+    border: 1.5px solid rgba(78, 205, 196, 0.4);
+    flex-shrink: 0;
 }
 
 .speaker-name {
-    font-weight: bold;
-    color: #333;
+    font-weight: 700;
+    color: #4ecdc4;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
 }
 
-/* Анимация печатания текста */
+/* Текст диалога */
 .dialog-text {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #444;
-    min-height: 60px;
-    max-height: 200px;
-    overflow-y: auto;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(235, 240, 255, 0.93);
+    min-height: 44px;
     position: relative;
+    padding: 0 2px;
 }
 
+/* Убираем дублирующий курсор — он в enhanced-styles.css */
 .dialog-text::after {
-    content: '|';
-    animation: blink 1s infinite;
-    color: var(--accent-color);
-    font-weight: bold;
+    content: none;
 }
 
-.dialog-text.typing-complete::after {
-    display: none;
-}
-
-@keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-}
-
-.manager-message {
-    background: #e8f5e8;
-    padding: 10px 15px;
-    border-radius: 10px;
-    margin: 5px 0;
-    border-left: 4px solid #28a745;
-}
-
-.client-message {
-    background: #e3f2fd;
-    padding: 10px 15px;
-    border-radius: 10px;
-    margin: 5px 0;
-    border-left: 4px solid #2196f3;
-}
-
+/* Кнопки выбора */
 .dialog-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 8px;
+    margin-top: 4px;
 }
 
 .dialog-action {
-    background: #007bff;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 14px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.18), rgba(118, 75, 162, 0.18));
+    border: 1px solid rgba(102, 126, 234, 0.35);
+    color: rgba(220, 225, 255, 0.95);
+    padding: 11px 16px;
+    border-radius: 10px;
+    font-size: 0.875rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.18s ease;
     text-align: left;
+    line-height: 1.4;
+    font-family: inherit;
 }
 
 .dialog-action:hover {
-    background: #0056b3;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(0,123,255,0.3);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.45), rgba(118, 75, 162, 0.45));
+    border-color: rgba(102, 126, 234, 0.7);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 18px rgba(102, 126, 234, 0.28);
+    color: #fff;
 }
 
 .dialog-action:active {
     transform: translateY(0);
 }
 
-/* Адаптивность для мобильных */
+/* Сообщения */
+.manager-message {
+    background: rgba(78, 205, 196, 0.1);
+    padding: 9px 13px;
+    border-radius: 10px;
+    border-left: 3px solid #4ecdc4;
+    color: rgba(255, 255, 255, 0.9);
+    animation: msgSlide 0.25s ease-out;
+}
+
+.client-message {
+    background: rgba(150, 206, 180, 0.1);
+    padding: 9px 13px;
+    border-radius: 10px;
+    border-left: 3px solid #96ceb4;
+    color: rgba(255, 255, 255, 0.9);
+    animation: msgSlide 0.25s ease-out;
+}
+
+@keyframes msgSlide {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
 @media (max-width: 768px) {
-    .dialog-box {
-        width: 95%;
-        bottom: 10px;
-        padding: 15px;
-    }
-    
-    .dialog-text {
-        font-size: 14px;
-    }
-    
-    .dialog-action {
-        padding: 10px 15px;
-        font-size: 13px;
-    }
-}
-
-/* Анимации появления */
-@keyframes dialogSlideUp {
-    from {
-        opacity: 0;
-        transform: translateX(-50%) translateY(100px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(-50%) translateY(0);
-    }
-}
-
-.dialog-box {
-    animation: dialogSlideUp 0.3s ease-out;
-}
-
-/* Стили для сообщений в диалоге */
-.manager-message, .client-message {
-    animation: messageSlideIn 0.3s ease-out;
-}
-
-@keyframes messageSlideIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    .dialog-box { padding: 14px 16px 18px; }
+    .dialog-text { font-size: 0.9rem; }
+    .dialog-actions { grid-template-columns: 1fr; gap: 6px; }
+    .dialog-action { padding: 10px 13px; font-size: 0.83rem; }
 }
