@@ -305,11 +305,13 @@
 }
 
 /* 6. АНИМАЦИИ ПЕРСОНАЖЕЙ */
-.character-sprite {
+.character-sprite,
+.char-sprite {
     transition: all 0.3s ease;
 }
 
-.character-sprite.talking {
+.character-sprite.talking,
+.char-sprite.talking {
     transform: scale(1.05);
     filter: brightness(1.1);
 }

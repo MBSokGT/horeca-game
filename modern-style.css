@@ -1,5 +1,19 @@
 /* Современный CSS для игры "Продажник Года" */
 
+/* CSS переменные (используются navigation-styles.css и другими файлами) */
+:root {
+    --accent-color: #8b0000;
+    --glass-bg: rgba(15, 15, 35, 0.85);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --primary-gradient: linear-gradient(135deg, #8b0000, #c0392b);
+    --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.2);
+    --shadow-heavy: 0 10px 40px rgba(0, 0, 0, 0.4);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-light: #ffffff;
+    --bg-light: rgba(255, 255, 255, 0.08);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -218,8 +232,18 @@ body {
 }
 
 .location-bg.cafe {
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
                 url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect width="1200" height="800" fill="%23f4a460"/><rect x="200" y="300" width="100" height="200" fill="%23deb887"/><rect x="400" y="300" width="100" height="200" fill="%23deb887"/><rect x="600" y="300" width="100" height="200" fill="%23deb887"/></svg>');
+}
+
+.location-bg.hotel {
+    background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+                linear-gradient(135deg, #1a1a3e 0%, #2c2c5a 40%, #3a2a4a 100%);
+}
+
+.location-bg.canteen {
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                linear-gradient(135deg, #2a3a2a 0%, #3a4a3a 40%, #4a5a4a 100%);
 }
 
 /* HUD */
@@ -263,9 +287,6 @@ body {
     border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
-.avatar-img::before {
-    content: "👨‍💼";
-}
 
 .player-info {
     display: flex;
